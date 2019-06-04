@@ -1,0 +1,14 @@
+{% if BASEPATH is not defined or exit %}
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{{site_url('assets/css/skeleton.css')}}" rel="stylesheet">
+		<link href="{{site_url('assets/css/style.css')}}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</head>
+<title>404 Page Not Found</title>
+
+	<div class="error-container">
+		<h1>404 Page Not Found</h1>
+		<p>This page you requested was not found.</p>
+	</div>
+{% endif %}	

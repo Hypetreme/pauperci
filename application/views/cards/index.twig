@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="nav-up">
+<!--Previous Page Button-->
+{% if pagenumber %}
+	<input type="submit" value="<Previous" class="page-button" 
+		onclick="window.location.href={{pagenumber-1}}">
+{% endif %}
+
+<!--Next Page Button-->
+{% if nextexists == true %}
+	<input type="submit" value="Next>" class="page-button" 
+		onclick="window.location.href={{pagenumber+1}}">
+{% endif %}
+</div>
+<div class="all-cards">
+
+{% for card in cards %}
+<div class="preview">
+	<a href="view/{{card.link}}" title="{{card.name}}">
+		<img class="lazyload card-image" src="{{site_url('assets/images/back.jpg')}}"data-src="{{card.url}}"></a></div>
+{% endfor %}
+</div>
+	</div>
+{% endblock %}

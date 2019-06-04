@@ -1,0 +1,38 @@
+<html>
+		<title>{{title}}</title>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{{site_url('assets/css/skeleton.css')}}" rel="stylesheet">
+		<link href="{{site_url('assets/css/style.css')}}" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</head>
+<div class="nav">
+	<form action="" method="GET">
+		<div class="nav-first">
+			<div class="menu" onclick="window.location.href='{{site_url()}}'"><p>All commons</p></div>
+			<div class="menu" onclick="window.location=''"><p>Borderline</p></div>
+			<div class="menu" onclick="window.location=''"><p>Cubable</p></div>
+			<div class="menu" onclick="window.location=''"><p>Staple</p></div>
+				</div>
+<div class="nav-second">
+	<input type="search" name="name" class="search" placeholder="Search for a card...">
+		</form>
+<div class="nav-mobile">
+	<i class="material-icons">storage</i>
+		</div>
+			</div>
+				</div>
+<body>
+	<div class="container">				
+{% block content %}
+{% endblock %}
+		</div>
+	</body>
+<div class="footer">
+  	<p>The information presented on this site about Magic: The Gathering, both literal and graphical, is copyrighted by Wizards of the Coast.</p>
+  		<p>This website is not produced, endorsed, supported, or affiliated with Wizards of the Coast.</p>
+			</div>
+				</html>
+
+<script type="text/javascript" src="{{site_url('assets/js/lazyload.js')}}"></script>
+	<script type="text/javascript" src="{{site_url('assets/js/load_lazyload.js')}}" ></script>

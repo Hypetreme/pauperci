@@ -4,6 +4,7 @@ class Cards extends CI_Controller {
 		public function __construct() {
 
 		parent::__construct();
+		$this->load->library('twig');
 		$this->load->model('cards_model');
 		$this->load->helper('html');
 		$this->load->helper('url_helper');
@@ -15,15 +16,13 @@ class Cards extends CI_Controller {
 		if (!is_array($result)) {
 		$data['error_message'] = $this->cards_model->error_handler($result);		
 		} else {
-		$data['cards'] =  $this->cards_model->get_cards($result);
-		$data['card'] = $data['cards']['details'];
-		$data['next_exists'] =$data['cards']['info']['next_exists'];
-		$data['page_num'] = 1;
+		$cards =  $this->cards_model->get_cards($result);
+		$next_exists = $cards['info']['next_exists'];
+		$cards = $cards['details'];
+		$title = "All Commons";
+		$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists]);
 }
-        $this->load->view('templates/header', $data);
-		$this->load->view('templates/nav', $data);
-        $this->load->view('cards/index', $data);
-        $this->load->view('templates/footer', $data);
+        
 	}
 
 
@@ -35,15 +34,12 @@ class Cards extends CI_Controller {
 		$data['error_message'] = $this->cards_model->error_handler($result);
 
 		} else {
-		$data['cards'] =  $this->cards_model->get_cards($result);
-		$data['card'] = $data['cards']['details'];
-		$data['next_exists'] =$data['cards']['info']['next_exists'];
-		$data['page_num'] = $page_num;
-}
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/nav', $data);
-        $this->load->view('cards/index', $data);
-        $this->load->view('templates/footer', $data);
+	    $cards =  $this->cards_model->get_cards($result);
+	    $next_exists = $cards['info']['next_exists'];
+		$cards = $cards['details'];
+		$title = "All Commons";
+		$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists, 'pagenumber' => $page_num]);
+		}
 	}
 
 	public function view($certain_card) {
@@ -56,14 +52,11 @@ class Cards extends CI_Controller {
 
 		$data['error_message'] = "";
 		$data['cards'] = $this->cards_model->get_cards($result);
-		$data['card']['details'] = array_shift($data['cards']['details']);
-        $data['title'] = $data['card'];
+		$card = $data['card']['details'] = array_shift($data['cards']['details']);
+        $title = $card['name'];
     }
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/nav', $data);
-        $this->load->view('cards/view', $data);
-        $this->load->view('templates/footer', $data);
+        $this->twig->display('cards/view', ['card' => $card, 'title' => $title ]);
 	}
 
 
