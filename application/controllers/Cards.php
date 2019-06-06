@@ -59,5 +59,10 @@ class Cards extends CI_Controller {
         $this->twig->display('cards/view', ['card' => $card, 'title' => $title ]);
 	}
 
+	public function search() {
+		$certain_card = $this->input->post('name');
+		$this->view($certain_card);
+	}
+
 
 }
