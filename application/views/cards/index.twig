@@ -3,7 +3,7 @@
 
 <div class="nav-up">
 <!--Previous Page Button-->
-{% if pagenumber %}
+{% if pagenumber != 1 and pagenumber != 0 %}
 	<input type="submit" value="<Previous" class="page-button" 
 		onclick="window.location.href={{pagenumber-1}}">
 {% endif %}

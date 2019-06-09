@@ -53,6 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['404_override'] = 'my404';
 //$route['translate_uri_dashes'] = FALSE;
 $route['view/(:any)'] = 'cards/view/$1';
+$route['(0)'] = 'my404';
 $route['(:num)'] = 'cards/page/$1';
+
 $route['default_controller'] = 'cards';
 

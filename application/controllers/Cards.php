@@ -1,7 +1,7 @@
 <?php
 class Cards extends CI_Controller {
 
-		public function __construct() {
+public function __construct() {
 
 		parent::__construct();
 		$this->load->library('twig');
@@ -10,59 +10,46 @@ class Cards extends CI_Controller {
 		$this->load->helper('url_helper');
 	}
 
-	public function index() {
+public function index() {
 
-		$result = $this->cards_model->get_response();
-		if (!is_array($result)) {
-		$data['error_message'] = $this->cards_model->error_handler($result);		
-		} else {
-		$cards =  $this->cards_model->get_cards($result);
+		$result = $this->cards_model->searchAll();
+		$cards =  $this->cards_model->viewAll($result);
 		$next_exists = $cards['info']['next_exists'];
+		$page_num = 1;
 		$cards = $cards['details'];
 		$title = "All Commons";
-		$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists]);
-}
-        
-	}
 
+$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists, 'pagenumber' => $page_num]); }
 
-	public function page($page_num) {
+public function page($page_num) {
 
-		$result = $this->cards_model->get_response(NULL,$page_num);
-
-		if (!is_array($result) || empty($result['data'])) {
-		$data['error_message'] = $this->cards_model->error_handler($result);
-
-		} else {
-	    $cards =  $this->cards_model->get_cards($result);
+		$result = $this->cards_model->searchAll(NULL,$page_num);
+	    $cards =  $this->cards_model->viewAll($result);
 	    $next_exists = $cards['info']['next_exists'];
 		$cards = $cards['details'];
 		$title = "All Commons";
-		$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists, 'pagenumber' => $page_num]);
-		}
+
+$this->twig->display('cards/index', ['cards' => $cards, 'title' => $title, 'nextexists' => $next_exists, 'pagenumber' => $page_num]);
 	}
 
-	public function view($certain_card) {
+public function view($card) {
 
-		$result = $this->cards_model->get_response($certain_card, NULL);
-		if (!is_array($result)) {
-
-		$data['error_message'] = $this->cards_model->error_handler($result);	
-		} else {
-
+		$result = $this->cards_model->searchNamedCard($card, NULL);
 		$data['error_message'] = "";
-		$data['cards'] = $this->cards_model->get_cards($result);
-		$card = $data['card']['details'] = array_shift($data['cards']['details']);
+		$data['fetchCard'] = $this->cards_model->viewCard($result);
+		$card = $data['fetchCard']['details'];
         $title = $card['name'];
-    }
 
-        $this->twig->display('cards/view', ['card' => $card, 'title' => $title ]);
+$this->twig->display('cards/view', ['card' => $card, 'title' => $title ]);
 	}
 
-	public function search() {
-		$certain_card = $this->input->post('name');
-		$this->view($certain_card);
-	}
+public function search() {
+		$card = $this->input->post('name');
+		$result = $this->cards_model->searchCard($card);
+		$name = url_title($result['data'][0]['name']);
+
+		redirect('view/'.$name);
+}
 
 
 }
