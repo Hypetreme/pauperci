@@ -4,10 +4,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="{{site_url('assets/css/skeleton.css')}}" rel="stylesheet">
 		<link href="{{site_url('assets/css/style.css')}}" rel="stylesheet">
+		<link href="{{site_url('assets/css/mana.min.css')}}" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 <div class="nav">
-	<form id="form" action="cards/search" method="POST">
+	<form id="form" action="{{site_url('cards/search')}}" method="POST">
 		<div class="nav-first">
 			<div class="menu" onclick="window.location.href='{{site_url()}}'"><p>All commons</p></div>
 			<div class="menu" onclick="window.location=''"><p>Borderline</p></div>
@@ -35,4 +36,4 @@
 				</html>
 
 <script type="text/javascript" src="{{site_url('assets/js/lazyload.js')}}"></script>
-	<script type="text/javascript" src="{{site_url('assets/js/load_lazyload.js')}}" ></script>
+<script type="text/javascript" src="{{site_url('assets/js/load_lazyload.js')}}" ></script>
